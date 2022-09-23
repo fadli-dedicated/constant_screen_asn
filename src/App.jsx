@@ -4,6 +4,7 @@ import "./App.css";
 
 function App() {
   const [izinkan, setIzinkan] = useState(false);
+  const [success, setSuccess] = useState(false);
   const handleCalendar = async () => {
     apiCalendar.handleAuthClick();
     setIzinkan(true);
@@ -66,6 +67,10 @@ function App() {
     return () => {};
   }, []);
 
+  if (success) {
+    return <div className="App">Terimakasih, data Berhasil di buat</div>;
+  }
+
   return (
     <div className="App">
       {!izinkan ? (
@@ -74,6 +79,7 @@ function App() {
         <button
           onClick={() => {
             _createEvent().then((res) => console.info(res));
+            setSuccess(true);
           }}
         >
           Konfirmasi
